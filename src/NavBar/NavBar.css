@@ -1,0 +1,24 @@
+.navbar {
+  border-radius: 10px;
+  background-color: #bddcfe;
+
+}
+
+.navbar .nav-link {
+  color: #113f67;
+  font-size: 0.9rem;
+}
+
+.navbar .nav-link:hover {
+  color: #a2a8d3;
+}
+
+.navbar .btn {
+
+  transition: background-color 0.3s;
+}
+
+.navbar .btn:hover {
+  background-color: #e7eaf6;
+}
+
