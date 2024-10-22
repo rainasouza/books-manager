@@ -19,6 +19,7 @@ const Login = () => {
       const result = await signInWithPopup(auth, provider);
       setUser(result.user);
       setError('');
+      navigateToBooks();
     } catch (error) {
       setError(error.message);
     }
@@ -32,24 +33,19 @@ const Login = () => {
         <Card.Body>
           {error && <Alert variant="danger">{error}</Alert>}
           {user ? (
-              navigateToBooks()
+            navigateToBooks()
           ) : (
             <>
-              <Card.Header className="card-header">Veja suas Leituras </Card.Header>
-              <br></br>
+              <Card.Header className="card-header">Gerencie suas Leituras</Card.Header>
               <Card.Body>
                 <Card.Title className="card-title">Que Bom Ver Você</Card.Title>
                 <Card.Text className="card-text">
                   Entre na sua estante com o Google.
-                  <br></br>
                 </Card.Text>
-                <br></br>
                 <Button onClick={handleLogin} className="google-button">
                   <FcGoogle className="me-2" /> Login com Google
                 </Button>
-                
               </Card.Body>
-              <br></br>
               <Card.Footer className="text-muted">E Se Divirta!</Card.Footer>
             </>
           )}

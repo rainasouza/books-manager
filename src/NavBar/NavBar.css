@@ -1,24 +1,79 @@
+
 .navbar {
-  border-radius: 10px;
-  background-color: #bddcfe;
+  background-color: #975a5e8c; /* second-color com opacidade */
+  padding: 1.2rem 2.5rem;
 
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease-in-out;
 }
 
-.navbar .nav-link {
-  color: #113f67;
-  font-size: 0.9rem;
+.navbar-brand {
+  font-size: 2rem;
+  color: #25161b; /* fourth-color */
+  transition: color 0.3s ease-in-out;
+  padding-left: 0.5rem;
 }
 
-.navbar .nav-link:hover {
-  color: #a2a8d3;
+.navbar-brand:hover {
+  color: #453953; /* third-color */
 }
 
-.navbar .btn {
-
-  transition: background-color 0.3s;
+.navbar-toggler {
+  border: none;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  color: #f3cba5; /* first-color */
 }
 
-.navbar .btn:hover {
-  background-color: #e7eaf6;
+.navbar-collapse {
+  justify-content: flex-end;
+  padding: 0.5rem;
 }
 
+.nav-link {
+  font-size: 1rem;
+  color: #25161b; /* fourth-color */
+  margin-right: 1.5rem;
+  transition: color 0.3s ease-in-out;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
+
+.nav-link:hover {
+  color: #975a5e; /* second-color */
+}
+
+.nav-link-logout {
+  color: #975a5e; /* second-color */
+  font-size: 1rem;
+  transition: color 0.3s ease-in-out;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
+
+.nav-link-logout:hover {
+  color: #453953; /* third-color */
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem 1.5rem;
+  }
+
+  .navbar-brand {
+    font-size: 1.5rem;
+    padding-left: 0;
+  }
+
+  .navbar-collapse {
+    padding: 0;
+  }
+
+  .nav-link,
+  .nav-link-logout {
+    font-size: 0.9rem;
+    margin-right: 1rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+  }
+}

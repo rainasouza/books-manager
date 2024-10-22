@@ -1,58 +1,90 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-//get by search
-const Books = () => {
-  const [books, setBooks] = useState([]);
-  const [search, setSearch] = useState('');
-  const [error, setError] = useState('');
+import React, { useState } from 'react'; 
+import axios from 'axios'; 
+import { Button, Card, Row, Col, Form, Alert, Spinner } from 'react-bootstrap'; 
+import './Books.css';
 
-  const handleSearch = async (e) => {
-    e.preventDefault();
-    setError('');
-    setBooks([]);
+const Books = ({ addBook }) => { 
+  const [query, setQuery] = useState(''); 
+  const [books, setBooks] = useState([]); 
+  const [error, setError] = useState(''); 
+  const [loading, setLoading] = useState(false); 
 
-    try {
-      const response = await axios.get(`https://www.googleapis.com/books/v1/volumes`, {
-        params: {
-          q: search,
-          key: process.env.REACT_APP_GOOGLE_KEY,
-        },
-      });
+  const handleSearch = async (e) => { 
+    e.preventDefault(); 
+    setError(''); 
+    setBooks([]); 
+    setLoading(true); 
 
-      if (response.data.items) {
-        setBooks(response.data.items);
-      } else {
-        setError('Nenhum livro encontrado.');
-      }
-    } catch (error) {
-      console.error('Erro ao buscar livros:', error);
-      setError('Ocorreu um erro ao buscar livros.');
-    }
+    try { 
+      const response = await axios.get('https://www.googleapis.com/books/v1/volumes', { 
+        params: { 
+          q: query, 
+          key: process.env.REACT_APP_GOOGLE_KEY, 
+          maxResults: 40, 
+          orderBy: 'relevance', 
+        }, 
+      }); 
+
+      if (response.data.items) { 
+        setBooks(response.data.items); 
+      } else { 
+        setError('Nenhum livro encontrado.'); 
+      } 
+    } catch (error) { 
+      console.error('Erro ao buscar livros:', error); 
+      setError('Ocorreu um erro ao buscar livros.'); 
+    } finally { 
+      setLoading(false); 
+    } 
   };
 
-  return (
-    <div>
-      <h2>Pesquisar Livros</h2>
-      <form onSubmit={handleSearch}>
-        <input
-          type="text"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Digite o título ou autor"
-        />
-        <button type="submit">Buscar</button>
-      </form>
-      {error && <p>{error}</p>}
-      <ul>
-        {books.map((book) => (
-          <li key={book.id}>
-            <h3>{book.volumeInfo.title}</h3>
-            <p>{book.volumeInfo.authors?.join(', ')}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+  return ( 
+    <div className="mini-biblioteca"> 
+      <div className="search-card"> 
+        <Form className="d-flex mb-2" onSubmit={handleSearch}> 
+          <Form.Control 
+            type="text" 
+            placeholder="Procure por autor ou nome do livro" 
+            value={query} 
+            onChange={(e) => setQuery(e.target.value)} 
+            className="search-input" 
+          /> 
+          <Button variant="primary" type="submit" className="button-search"> 
+            Buscar 
+          </Button> 
+        </Form> 
+      </div> 
+
+      {loading && <Spinner animation="border" className="spinner-border" />} 
+
+      {error && ( 
+        <Alert variant="danger" className="mt-3"> 
+          {error} 
+        </Alert> 
+      )} 
+
+      <Row className="mt-5" xs={2} sm={2} md={3} lg={4}> 
+        {books.map((book) => ( 
+          <Col key={book.id} className="mb-4"> 
+            <Card className="book-card"> 
+              <Card.Img 
+                variant="top" 
+                src={book.volumeInfo.imageLinks?.thumbnail || 'https://via.placeholder.com/128x193'} 
+                alt={book.volumeInfo.title} 
+              /> 
+              <Card.Body> 
+                <Card.Title className="card-title">{book.volumeInfo.title}</Card.Title> 
+                <Card.Text className="card-text">{book.volumeInfo.authors?.join(', ') || 'Autor desconhecido'}</Card.Text> 
+                <Button variant="primary" onClick={() => addBook(book)}> 
+                  Adicionar à Biblioteca 
+                </Button> 
+              </Card.Body> 
+            </Card> 
+          </Col> 
+        ))} 
+      </Row> 
+    </div> 
+  ); 
 };
 
 export default Books;
