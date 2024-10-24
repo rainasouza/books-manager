@@ -1,6 +1,10 @@
+body{
+    align-items: center;
+}
 .mini-biblioteca {
     padding: 2rem 1.5rem;
     background-color: #f3cba5;
+    align-items: center;
 }
 
 .search-card {
@@ -90,9 +94,11 @@ button[type="submit"]:hover {
     color: #975a5e;
     font-size: 1rem;
     text-align: center;
+    align-items: center;
 }
 
 .book-card button {
+    align-self: center;
     background-color: #453953;
     border: none;
     color: #f3cba5;
@@ -142,6 +148,7 @@ button[type="submit"]:hover {
 
     .book-card .card-text {
         font-size: 0.85rem;
+        align-items: center;
     }
 
     .book-card button {
@@ -149,3 +156,52 @@ button[type="submit"]:hover {
         font-size: 0.85rem;
     }
 }
+
+
+.primary-button {
+    background-color: #975a5e; 
+    color: #f3cba5; 
+    border: none;
+    padding: 8px 16px;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .primary-button:hover {
+    background-color: #453953; 
+    transform: scale(1.05);
+  }
+  
+  .secondary-button {
+    background-color: #25161b; 
+    color: #f3cba5; 
+    border: none;
+    padding: 8px 16px;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .secondary-button:hover {
+    background-color: #453953; 
+    transform: scale(1.05);
+  }
+  
+  .modal-header {
+    background-color: #975a5e; 
+    color: #f3cba5; 
+  }
+  
+  .modal-body {
+    background-color: #f3cba5; 
+    color: #25161b; 
+  }
+  
+  .modal-footer {
+    background-color: #453953; 
+  }
+  .modal-backdrop {
+    background-color: #f3cba526; 
+    
+  }
